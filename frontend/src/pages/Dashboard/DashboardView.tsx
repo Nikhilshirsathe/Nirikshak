@@ -13,7 +13,7 @@ import { Transaction, AppTab } from "@/utils/types";
 
 interface DashboardViewProps {
   onNavigate: (tab: AppTab) => void;
-  transactions: Transaction[];
+  transactions?: Transaction[];
   onSelectTransaction: (tx: Transaction) => void;
 }
 
@@ -148,18 +148,19 @@ function RiskScoreChart({ transactions }: { transactions: Transaction[] }) {
 
 export default function DashboardView({
   onNavigate,
-  transactions,
+  transactions = [],
   onSelectTransaction,
 }: DashboardViewProps) {
+  const safeTransactions = transactions ?? [];
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [showAll, setShowAll] = useState(false);
 
-  const categories = Array.from(new Set(transactions.map((tx) => tx.category)));
-  const statuses = Array.from(new Set(transactions.map((tx) => tx.status)));
+  const categories = Array.from(new Set(safeTransactions.map((tx) => tx.category)));
+  const statuses = Array.from(new Set(safeTransactions.map((tx) => tx.status)));
 
-  const filtered = transactions.filter((tx) => {
+  const filtered = safeTransactions.filter((tx) => {
     const matchSearch =
       tx.accountSource.toLowerCase().includes(searchTerm.toLowerCase()) ||
       tx.destination.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -173,8 +174,8 @@ export default function DashboardView({
   });
 
   const displayed = showAll ? filtered : filtered.slice(0, 20);
-  const flaggedCount = transactions.filter((t) => t.probability >= 0.5).length;
-  const highRiskCount = transactions.filter((t) => t.probability >= 0.8).length;
+  const flaggedCount = safeTransactions.filter((t) => t.probability >= 0.5).length;
+  const highRiskCount = safeTransactions.filter((t) => t.probability >= 0.8).length;
 
   return (
     <div className="space-y-6">
@@ -188,7 +189,7 @@ export default function DashboardView({
       {/* Summary cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { label: "Total Records", value: transactions.length, color: "text-slate-800" },
+          { label: "Total Records", value: safeTransactions.length, color: "text-slate-800" },
           { label: "Flagged (≥50%)", value: flaggedCount, color: "text-red-600" },
           { label: "High Risk (≥80%)", value: highRiskCount, color: "text-amber-600" },
         ].map(({ label, value, color }) => (
@@ -305,7 +306,7 @@ export default function DashboardView({
               {filtered.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center text-slate-400">
-                    {transactions.length === 0
+                    {safeTransactions.length === 0
                       ? "No data yet. Upload a dataset first."
                       : "No results match your filters."}
                   </td>
