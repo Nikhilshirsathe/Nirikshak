@@ -1,0 +1,40 @@
+# ── Frontend ──────────────────────────────────────────────────────────────────
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+frontend/.env*.local
+
+# ── Backend ───────────────────────────────────────────────────────────────────
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.env
+backend/venv/
+backend/.venv/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# ── ML Models (KEEP IN GIT — needed for deployment) ──────────────────────────
+# NOTE: Models/*.pkl files MUST be committed for Railway deployment.
+# Do NOT add the following lines:
+# Models/*.pkl
+# ml/models/*.pkl
+
+# ── Data uploads (ephemeral) ─────────────────────────────────────────────────
+data/uploads/*
+!data/uploads/.gitkeep
+
+# ── OS / IDE ─────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+.env.local
