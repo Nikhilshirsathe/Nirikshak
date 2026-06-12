@@ -215,7 +215,7 @@ async function generatePDF(report: ReportResult) {
     });
     y += 6;
 
-    let pg = pdf.getNumberOfPages();
+    let pg = (pdf as any).getNumberOfPages();
     pdf.setFontSize(6);
     pdf.setFont("helvetica", "normal");
     report.transactions.slice(0, 50).forEach((tx) => {
