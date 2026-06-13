@@ -112,7 +112,6 @@ async def upload_dataset(
     sess = get_session(user["id"])
     sess.latest_results = results
     sess.latest_df = df.copy()
-    sess.persist()
 
 
     flagged = sum(1 for r in results if r["probability"] >= 0.5)
