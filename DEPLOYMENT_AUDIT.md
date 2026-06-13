@@ -390,7 +390,7 @@ Set environment variables in Vercel dashboard:
 | Auth | Falls back to anonymous | Reject invalid tokens in production |
 | Secrets | In .env file | Railway/Vercel environment variables |
 | Rate Limiting | None | Add `slowapi` or Railway middleware |
-| File Upload | No size limit | Add 10MB max file size |
+| File Upload | No size limit | Add 150MB max file size |
 | Input Validation | Minimal | Add Pydantic validators |
 | Logging | None | Add structlog or loguru |
 
