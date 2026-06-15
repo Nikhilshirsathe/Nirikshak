@@ -29,7 +29,7 @@ class Settings:
 
 
 
-    MODEL_DIR: Path = Path(os.getenv("MODEL_DIR", str(_BACKEND_DIR / "Models")))
+    MODEL_DIR: Path = Path(os.getenv("MODEL_DIR", str(_BACKEND_DIR.parent / "Models")))
     UPLOAD_DIR: Path = Path(os.getenv("UPLOAD_DIR", str(_BACKEND_DIR / "data" / "uploads")))
 
     # ── Auth ────────────────────────────────────────────────────────────────
