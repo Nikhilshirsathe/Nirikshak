@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { ShieldAlert, Loader2, Eye, EyeOff } from "lucide-react";
+import { ShieldAlert, Loader2, Eye, EyeOff, UserCircle } from "lucide-react";
 
 type Mode = "login" | "signup";
 
@@ -108,7 +108,7 @@ export default function AuthPage({ onAuth }: { onAuth: () => void }) {
 
           <div className="text-center text-sm text-slate-500">
             {mode === "login" ? (
-              <>Don&apos;t have an account?{" "}
+              <>Don't have an account?{" "}
                 <button onClick={() => { setMode("signup"); setError(null); setMessage(null); }}
                   className="text-blue-600 font-semibold hover:underline">Sign up</button>
               </>
@@ -119,6 +119,38 @@ export default function AuthPage({ onAuth }: { onAuth: () => void }) {
               </>
             )}
           </div>
+
+          {/* Demo Account */}
+          {mode === "login" && (
+            <div className="border-t border-slate-200 pt-5">
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-3">
+                <div className="flex items-center gap-2">
+                  <UserCircle className="w-4 h-4 text-blue-600" />
+                  <span className="text-xs font-bold text-blue-800 uppercase tracking-wide">Demo Account for Judges</span>
+                </div>
+                <div className="space-y-1.5 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-500 font-medium">Email:</span>
+                    <code className="bg-white px-2 py-0.5 rounded-lg border border-blue-200 text-blue-700 font-mono text-xs">demo@nirikshak.ai</code>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-slate-500 font-medium">Password:</span>
+                    <code className="bg-white px-2 py-0.5 rounded-lg border border-blue-200 text-blue-700 font-mono text-xs">Demo@123456</code>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail("demo@nirikshak.ai");
+                    setPassword("Demo@123456");
+                  }}
+                  className="w-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold py-2 rounded-lg transition-colors text-xs"
+                >
+                  Auto-fill Demo Credentials
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
